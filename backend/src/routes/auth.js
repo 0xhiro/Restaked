@@ -27,13 +27,11 @@ const authenticateToken = (req, res, next) => {
 };
 
 router.post('/signup', async (req, res) => {
-    console.log("POSTED REQ", req.body.userEmail)
     const { userEmail, password } = req.body;
     try {
         const user = new User({ userEmail, password });
         console.log(user)
         await user.save();
-        console.log("CONFIRMATION", user);
         res.status(201).send('User created');
     } catch (error) {
         console.log(error.message)
@@ -46,14 +44,11 @@ router.post('/login', async (req, res) => {
     console.log(req.body)
     try {
         const user = await User.findOne({ userEmail: userEmail });
-        console.log(`Found user ${userEmail} with password ${password}`);
         if (!user || !(await user.checkPassword(password))) {
             return res.status(401).send('Authentication failed');
         }
 
         const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
-        console.log(token);
-        console.log(`Success!`);
         res.json({ token });
     } catch (error) {
         res.status(500).send(error.message);
@@ -62,7 +57,6 @@ router.post('/login', async (req, res) => {
 
 router.post('/change-password', authenticateToken, async (req, res) => {
     const { oldPassword, newPassword } = req.body;
-    console.log("REQUEST BODY", oldPassword, newPassword)
     try {
         const user = await User.findById(req.user.userId);
         if (!user) {
@@ -87,7 +81,7 @@ router.post('/change-password', authenticateToken, async (req, res) => {
 
 router.get('/user', authenticateToken, async (req, res) => {
     try {
-        const user = await User.findById(req.user.userId).select('-password'); // Exclude the password field
+        const user = await User.findById(req.user.userId).select('-password'); 
         if (!user) return res.status(404).send('User not found');
 
         res.json({

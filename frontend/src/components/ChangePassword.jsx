@@ -29,19 +29,19 @@ function ChangePassword() {
                 value={oldPassword} 
                 onChange={e => setOldPassword(e.target.value)} 
                 placeholder="Old Password" 
-                className="form-control mr-2"  
-                style={{ maxWidth: '300px' }}  
+                className="form-control mr-2"  // Bootstrap class for margin
+                style={{ maxWidth: '300px' }}  // Consistent width management
             />
             <input 
                 type="password" 
                 value={newPassword} 
                 onChange={e => setNewPassword(e.target.value)} 
                 placeholder="New Password" 
-                className="form-control mr-2"  
-                style={{ maxWidth: '300px' }} 
+                className="form-control mr-2"  // Bootstrap class for margin
+                style={{ maxWidth: '300px' }}  // Consistent width management
             />
             <button 
-                className="btn btn-sm btn-light"  
+                className="btn btn-sm btn-light"  // Use btn-sm for smaller button
                 type="submit"
             >
                 Change Password

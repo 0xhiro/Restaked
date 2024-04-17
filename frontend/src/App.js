@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Account';
@@ -35,12 +35,15 @@ function App() {
 export default App;
 
 function ProtectedRoute({ children }) {
-  const { user } = useAuth(); 
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  if (!user || !user.token) { 
+  useEffect(() => {
+    if (!user || !user.token) {
       alert('Login or signup to view dashboard!');
-      return <Navigate to="/" />;
-  }
+      navigate('/');
+    }
+  }, [user, navigate]);  // React to changes in `user` state
 
   return children;
 }

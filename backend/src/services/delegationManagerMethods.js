@@ -2,10 +2,21 @@ require('dotenv').config({path: '../../.env'});
 const DelegationManager = require('../db/DelegationManager');
 const { weiToEth, saveToMongoDB } = require('../utils/utils');
 const { Web3 } = require('web3');
-const web3 = new Web3('https://mainnet.infura.io/v3/32a39c105d1d49f395bcb2ce44014d1d');
+const web3 = new Web3(process.env.RPC_URL);
+
+async function getLastProcessedBlock() {
+    try {
+        const lastEvent = await DelegationManager.findOne().sort({ block: -1 }).exec();
+        return lastEvent ? lastEvent.block : null; // default to this block if the database is empty
+    } catch (error) {
+        console.error("Error retrieving last processed block:", error);
+        return null; // return a default block in case of an error
+    }
+}
+
 
 async function checkEventsAtBlock(contract, eventName) {
-    let fromBlock = 19612227; 
+    let fromBlock = await getLastProcessedBlock() + 1;
     const toBlock = Number(await web3.eth.getBlockNumber());
     const batchSize = 5000;
 
