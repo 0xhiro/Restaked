@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import StripeButton from '../Buttons/StripeButton'
+import LoginButton from '../Buttons/LoginButton'
 import './Navbar.css';
 
 export default function Navbar({ links }) {
@@ -23,7 +23,7 @@ export default function Navbar({ links }) {
           ))}
         </ul>
           <div className="ms-auto">
-          <StripeButton />
+          <LoginButton link={{ path: "/login", title: "Login" }} />
           </div>
       </div>
     </nav>

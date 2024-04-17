@@ -22,6 +22,7 @@ function Dashboard() {
     const loadInitialData = async () => {
         try {
             const ops = await fetchOperators();
+            console.log(ops)
             setOperators(ops);
             const topOps = await fetchTopOperators();
             setTopOperators(topOps);

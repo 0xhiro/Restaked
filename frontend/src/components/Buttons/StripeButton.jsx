@@ -6,7 +6,7 @@ function StripeButton() {
 
     return (
         <div>
-            <button className='btn btn-light btn-lg' onClick={handleButtonClick}>Access API</button>
+            <button className='btn btn-light btn-lg' onClick={handleButtonClick}>Upgrade Subscription</button>
         </div>
     );
 }

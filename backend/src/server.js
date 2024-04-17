@@ -1,21 +1,25 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path'); // Add path module
+const path = require('path'); 
 const connectDB = require('./db/db');
 
 const apiRoutes = require('./routes/api');
+const authRoutes = require('./routes/auth')
 
 const app = express();
 
 const PORT = process.env.PORT || 8080; 
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL  
+    origin: process.env.FRONTEND_URL
 }));
+
 app.use(express.json());  
 
 app.use('/api', apiRoutes);
+
+app.use('/auth', authRoutes)
 
 app.use(express.static(path.join(__dirname, '../../frontend/build')));
 

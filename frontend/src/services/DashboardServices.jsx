@@ -1,8 +1,9 @@
-const backendUrl = "./"
+const backendUrl = "http://localhost:8080/"
 
 export async function fetchOperators() {
     try {
         const response = await fetch(`${backendUrl}api/unique-operators`);
+        console.log(response)
         const data = await response.json();
         if (!response.ok) {
             throw new Error(data.message || 'Unable to fetch operators');
