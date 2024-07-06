@@ -1,1 +1,1 @@
-codebase for [restaked.app](https://www.restaked.app/)
+Codebase for [restaked.app](https://www.restaked.app/)
